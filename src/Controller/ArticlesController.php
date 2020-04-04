@@ -12,6 +12,7 @@ class ArticlesController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->Auth->allow(['display', 'view', 'index']);
         $this->loadComponent('Paginator');
         $this->loadComponent('Flash'); // Include the FlashComponent
     }
