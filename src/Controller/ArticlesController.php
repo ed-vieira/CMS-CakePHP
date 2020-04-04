@@ -31,7 +31,7 @@ class ArticlesController extends AppController
 
     public function view($slug = null)
     {
-        $article = $this->Articles->findBySlug($slug)->firstOrFail();
+        $article = $this->Articles->findBySlug($slug)->contain(['Tags'])->firstOrFail();
         $this->set(compact('article'));
     }
 
@@ -62,7 +62,7 @@ class ArticlesController extends AppController
 
     public function edit($slug)
     {
-        $article = $this->Articles->findBySlug($slug)->firstOrFail();
+        $article = $this->Articles->findBySlug($slug)->contain(['Tags'])->firstOrFail();
         if ($this->request->is(['post', 'put'])) {
             $this->Articles->patchEntity($article, $this->request->getData());
             if ($this->Articles->save($article)) {
@@ -72,6 +72,10 @@ class ArticlesController extends AppController
             $this->Flash->error(__('Unable to update your article.'));
         }
         $this->set('article', $article);
+        // Get a list of tags.
+        $tags = $this->Articles->Tags->find('list');
+        // Set tags to the view context
+         $this->set('tags', $tags);
     }
 
 
@@ -85,4 +89,23 @@ class ArticlesController extends AppController
             return $this->redirect(['action' => 'index']);
         }
     }
+
+
+
+
+    public function tags()
+    {
+       $tags = $this->request->getParam('pass');
+
+       $articles =  $this->Articles->find('tagged', ['tags'=> $tags]);
+
+       $this->set([
+           'articles' => $articles,
+           'tags' => $tags
+       ]);
+
+    }
+
+
+
 }
