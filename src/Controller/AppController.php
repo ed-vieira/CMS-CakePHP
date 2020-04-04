@@ -41,7 +41,7 @@ class AppController extends Controller
     {
         parent::initialize();
 
-          $this->loadComponent('Auth', [
+       /*   $this->loadComponent('Auth', [
             'authenticate' => [
                 'Form' => [
                     'fields' => [
@@ -56,7 +56,7 @@ class AppController extends Controller
             ],
             // If unauthorized, return them to page they were just on
             'unauthorizedRedirect' => $this->referer()
-         ]);
+         ]);*/
 
          // Allow the display action so our PagesController
          // continues to work. Also enable the read only actions.
