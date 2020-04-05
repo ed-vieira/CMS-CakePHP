@@ -85,6 +85,16 @@ class AppController extends Controller
     }
 
 
+    public function user()
+    {
+        return $this->Auth->user();
+    }
+
+
+    public function authUser()
+    {
+       $this->set('authUser', $this->user());
+    }
 
 
 }

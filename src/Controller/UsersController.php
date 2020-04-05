@@ -69,8 +69,8 @@ class UsersController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
 
-        $this->set('authUser', $this->Auth->user());
-        
+        $this->authUser();
+
         $this->set(compact('user'));
     }
 
