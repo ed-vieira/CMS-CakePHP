@@ -24,6 +24,7 @@ class ArticlesController extends AppController
     {
         $this->loadComponent('Paginator');
         $articles = $this->Paginator->paginate($this->Articles->find());
+
         $this->set(compact('articles'));
     }
 
@@ -32,6 +33,7 @@ class ArticlesController extends AppController
 
     public function view($slug = null)
     {
+        $this->set('authUser', $this->Auth->user());
         $article = $this->Articles->findBySlug($slug)->contain(['Tags'])->firstOrFail();
         $this->set(compact('article'));
     }
