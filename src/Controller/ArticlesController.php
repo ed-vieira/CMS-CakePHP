@@ -22,6 +22,7 @@ class ArticlesController extends AppController
 
     public function index()
     {
+        $this->set('authUser', $this->Auth->user());
         $this->loadComponent('Paginator');
         $articles = $this->Paginator->paginate($this->Articles->find());
 

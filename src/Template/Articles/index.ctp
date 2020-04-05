@@ -5,7 +5,9 @@
     <tr>
         <th>Title</th>
         <th>Created</th>
-        <th>Action</th>
+        <?php if(isset($authUser)): ?>
+           <th>Action</th>
+        <?php endif; ?>
     </tr>
     <!-- Here is where we iterate through our $articles query object, printing out
 ˓→article info -->
@@ -17,10 +19,12 @@
             <td>
                 <?= $article->created->format(DATE_RFC850) ?>
             </td>
-            <td>
-                <?= $this->Html->link('Edit', ['action' => 'edit', $article->slug]) ?>
-                <?= $this->Form->postLink('Delete', ['action' => 'delete', $article->slug], ['confirm' => 'Are you sure?']) ?>
-            </td>
+            <?php if(isset($authUser)): ?>
+              <td>
+                 <?= $this->Html->link('Edit', ['action' => 'edit', $article->slug]) ?>
+                 <?= $this->Form->postLink('Delete', ['action' => 'delete', $article->slug], ['confirm' => 'Are you sure?']) ?>
+              </td>
+            <?php endif; ?>
         </tr>
     <?php endforeach; ?>
 </table>
