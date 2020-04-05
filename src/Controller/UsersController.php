@@ -18,7 +18,7 @@ class UsersController extends AppController
     public function initialize()
     {
        parent::initialize();
-     //  $this->Auth->allow(['logout', 'add']);
+       $this->Auth->allow(['logout', 'add']);
     }
 
 
@@ -68,6 +68,9 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
+
+        $this->set('authUser', $this->Auth->user());
+        
         $this->set(compact('user'));
     }
 
